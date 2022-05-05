@@ -28,7 +28,7 @@ export default function Index({ allPosts }) {
               excerpt={heroPost.excerpt}
             />
           )}
-          {morePosts.length > 0 && <MoreStories posts={morePosts} />}
+          {morePosts.length < 0 && <MoreStories posts={morePosts} />}
         </Container>
       </Layout>
     </>
@@ -37,7 +37,6 @@ export default function Index({ allPosts }) {
 
 export async function getStaticProps() {
   const allPosts = getAllPosts([
-    'title',
     'date',
     'slug',
     'author',
