@@ -5,7 +5,7 @@ context("SDET Eval App Blog", () => {
         });
         it("All links should have HREF populated", () => {
             cy.get("a").each((link) => {
-            cy.wrap(link).invoke("attr", "href").should("not.be.empty");
+                cy.wrap(link).invoke("attr", "href").should("not.be.empty");
             });
         });
 
@@ -15,14 +15,6 @@ context("SDET Eval App Blog", () => {
                 cy.get('a').should('be.visible').should('have.attr', 'href').should('not.be.empty')
                 cy.get('[data-testid="excertp"]').should('not.be.empty').should('be.visible')
             })
-        });
-
-        //this test is passing but something is wrong.
-        //Take a look and see what you find.
-        it("Checks for page navigations on blogs posts", () => {      
-            let location = cy.location('href')
-            cy.get('[data-testid="heroPostLink"]').click()
-            cy.location('href').should('not.equal', location)
         });
 
         //this test is passing but something is wrong.

@@ -12,12 +12,12 @@ yarn build && yarn start
 
 To run cypress
 ```
-yarn cy:run
+yarn cypress:run
 ```
 
 To open Cypress in GUI mode
 ```
-yarn cy:open
+yarn cypress:open
 ```
 
 # Notes
