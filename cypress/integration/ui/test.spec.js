@@ -1,8 +1,11 @@
+import { cy } from "date-fns/locale";
+
 context("SDET Eval App Blog", () => {
     describe("Blog", () => {
         beforeEach(() => {
             cy.visit("/");
         });
+        
         it("All links should have HREF populated", () => {
             cy.get("a").each((link) => {
             cy.wrap(link).invoke("attr", "href").should("not.be.empty");
@@ -29,6 +32,7 @@ context("SDET Eval App Blog", () => {
         //Take a look and see what you find.
         it("Checks for page navigations on blogs posts", () => {      
             let location = cy.location('href')
+            cy.get('h3');
             cy.get('[data-testid="heroPostLink"]').click()
             cy.location('href').should('not.equal', location)
         });
