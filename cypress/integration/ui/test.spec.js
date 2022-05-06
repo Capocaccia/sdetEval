@@ -12,9 +12,9 @@ context("SDET Eval App Blog", () => {
 
         it("Post rendering works correctly for all post previews", () => {
             cy.get('[data-testid="post-preview"]').each(() => {
-                cy.get('h2').should('be.visible').should('not.be.empty')
+                cy.get('h3').should('be.visible').should('not.be.empty')
                 cy.get('a').should('be.visible').should('have.attr', 'href').should('not.be.empty')
-                cy.get('[data-testid="excertp"]').should('not.be.empty').should('be.visible')
+                cy.get('[data-testid="excerpt"]').should('not.be.empty').should('be.visible')
             })
         });
 
