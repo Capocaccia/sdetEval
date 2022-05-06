@@ -1,5 +1,3 @@
-import { cy } from "date-fns/locale";
-
 context("SDET Eval App Blog", () => {
     describe("Blog", () => {
         beforeEach(() => {
@@ -13,7 +11,7 @@ context("SDET Eval App Blog", () => {
         });
 
         it("Post rendering works correctly for all post previews", () => {
-            cy.get('post-preview').each(($post) => {
+            cy.get('[data-testid="post-preview"]').each(() => {
                 cy.get('h2').should('be.visible').should('not.be.empty')
                 cy.get('a').should('be.visible').should('have.attr', 'href').should('not.be.empty')
                 cy.get('[data-testid="excertp"]').should('not.be.empty').should('be.visible')
@@ -22,17 +20,9 @@ context("SDET Eval App Blog", () => {
 
         //this test is passing but something is wrong.
         //Take a look and see what you find.
+        // This test appeared twice in the original repo
         it("Checks for page navigations on blogs posts", () => {      
             let location = cy.location('href')
-            cy.get('[data-testid="heroPostLink"]').click()
-            cy.location('href').should('not.equal', location)
-        });
-
-        //this test is passing but something is wrong.
-        //Take a look and see what you find.
-        it("Checks for page navigations on blogs posts", () => {      
-            let location = cy.location('href')
-            cy.get('h3');
             cy.get('[data-testid="heroPostLink"]').click()
             cy.location('href').should('not.equal', location)
         });

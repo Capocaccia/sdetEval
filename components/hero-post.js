@@ -26,7 +26,7 @@ export default function HeroPost({
         <div>
           <h3 className="mb-4 text-4xl lg:text-6xl leading-tight">
             <Link href={slug}>
-              <a  data-testid="heroPostLink" className="hover:underline">{title}</a>
+              <a data-testid="heroPostLink" className="h-4 w-4 hover:underline">{title}</a>
             </Link>
           </h3>
           <div className="mb-4 md:mb-0 text-lg">
