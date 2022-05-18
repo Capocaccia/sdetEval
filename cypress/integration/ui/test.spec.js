@@ -1,3 +1,4 @@
+
 context("SDET Eval App Blog", () => {
     describe("Blog", () => {
         beforeEach(() => {
@@ -5,15 +6,15 @@ context("SDET Eval App Blog", () => {
         });
         it("All links should have HREF populated", () => {
             cy.get("a").each((link) => {
-                cy.wrap(link).invoke("attr", "href").should("not.be.empty");
+                cy.wrap(link).invoke("attr", "href").should("not.be.empty");         //UI Code error - href is empty
             });
         });
 
         it("Post rendering works correctly for all post previews", () => {
-            cy.get('[data-testid="post-preview"]').each(($post) => {
+            cy.get('[data-testid="post-preview"]').each(($post) => {                  //test error - selector format is incorrect & UI Code error - conditional statement issue
                 cy.get('h2').should('be.visible').should('not.be.empty')
                 cy.get('a').should('be.visible').should('have.attr', 'href').should('not.be.empty')
-                cy.get('[data-testid="excerpt"]').should('not.be.empty').should('be.visible')
+                cy.get('[data-testid="excerpt"]').should('not.be.empty').should('be.visible')           //test error - typo error for 'excerpt'
             })
         });
 
@@ -21,15 +22,16 @@ context("SDET Eval App Blog", () => {
         //Take a look and see what you find.
         it("Checks for page navigations on blogs posts", () => {      
             let location = cy.location('href')
-            cy.get('[data-testid="heroPostLink"]').click()
+            cy.get('[data-testid="heroPostLink"]').click()                              //UI Code error - 'title' is missing
             cy.location('href').should('not.equal', location)
         });
 
         it("Validates footer and contents", () => {
-           cy.get('footer').should('be.visible').within(($footer) => {
+           cy.get('footer').should('be.visible').within(($footer) => {                  //UI code error - hidden
                cy.get('h3').should('not.be.empty')
            })
         });
     });
 });
+
   
