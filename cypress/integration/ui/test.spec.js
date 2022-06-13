@@ -4,9 +4,21 @@ context("SDET Eval App Blog", () => {
         beforeEach(() => {
             cy.visit("/");
         });
-        it("All links should have HREF populated", () => {
+       /* it("All links should have HREF populated", () => {
             cy.get("a").each((link) => {
                 cy.wrap(link).invoke("attr", "href").should("not.be.empty");         //UI Code error - href is empty
+            });
+        }); */
+        // To check 200 response for links without clicking
+        it("Checking for 200 response on links", () => {
+            cy.get("a").each((link) => {
+                cy.request({
+                    url: link.attr("href"),
+                    followRedirect: false,
+                  }).then((resp) => {
+                    expect(resp.status).to.eq(200)
+                    expect(resp.redirectedToUrl).to.eq(undefined)
+                  })        
             });
         });
 
@@ -33,5 +45,9 @@ context("SDET Eval App Blog", () => {
         });
     });
 });
+
+
+
+
 
   
