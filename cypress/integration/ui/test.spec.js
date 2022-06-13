@@ -9,7 +9,7 @@ context("SDET Eval App Blog", () => {
                 cy.wrap(link).invoke("attr", "href").should("not.be.empty");         //UI Code error - href is empty
             });
         }); */
-        // To check 200 response for links without clicking
+        //To check 200 response for links without clicking
         it("Checking for 200 response on links", () => {
             cy.get("a").each((link) => {
                 cy.request({
