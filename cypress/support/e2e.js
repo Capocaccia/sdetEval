@@ -18,3 +18,9 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+import { worker } from "../../pages/mocks/browser.js";
+
+Cypress.on('test:before:run:async', async () => {
+    await worker.start({ onUnhandledRequest: 'warn', });
+});
