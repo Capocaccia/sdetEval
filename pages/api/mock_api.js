@@ -9,7 +9,7 @@ export default async function handler(req, res) {
       'excerpt',
     ];
     const slug = req.query.slug;
-    const isMock = req.query.isMock;
+    const isMock = req.query.isMock || true;
     const fs = require('fs');
     const p = require('path');
     const matter = require('gray-matter')
