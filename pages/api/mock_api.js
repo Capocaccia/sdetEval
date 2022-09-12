@@ -9,7 +9,7 @@ export default async function handler(req, res) {
       'excerpt',
     ];
     const slug = req.query.slug;
-    const isMock = req.query.isMock || true;
+    const isMock = req.query.isMock || "true";
     const fs = require('fs');
     const p = require('path');
     const matter = require('gray-matter')
@@ -17,7 +17,12 @@ export default async function handler(req, res) {
     const realSlug = slug.replace(/\.md$/, '')
     const folder = isMock == "true" ? 'pages/mocks/_posts' : '_posts'
     const postsDirectory = p.join(process.cwd(), folder)
-    const fullPath = p.join(postsDirectory, `${realSlug}.md`)
+    var fullPath = p.join(postsDirectory, `${realSlug}.md`)
+
+    if (isMock == "true" && !fs.existsSync(fullPath)) {
+      fullPath = p.join(p.join(process.cwd(), '_posts'), `${realSlug}.md`);
+    }
+
     const fileContents = fs.readFileSync(fullPath, 'utf8')
     const { data, content } = matter(fileContents)
   
