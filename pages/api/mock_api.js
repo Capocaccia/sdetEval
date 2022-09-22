@@ -7,6 +7,7 @@ export default async function handler(req, res) {
       'ogImage',
       'coverImage',
       'excerpt',
+      'content'
     ];
     const slug = req.query.slug;
     const isMock = req.query.isMock || "true";
@@ -17,30 +18,42 @@ export default async function handler(req, res) {
     const realSlug = slug.replace(/\.md$/, '')
     const folder = isMock == "true" ? 'pages/mocks/_posts' : '_posts'
     const postsDirectory = p.join(process.cwd(), folder)
-    var fullPath = p.join(postsDirectory, `${realSlug}.md`)
 
-    if (isMock == "true" && !fs.existsSync(fullPath)) {
-      fullPath = p.join(p.join(process.cwd(), '_posts'), `${realSlug}.md`);
-    }
+    var fileEmpty = false;
 
-    const fileContents = fs.readFileSync(fullPath, 'utf8')
-    const { data, content } = matter(fileContents)
-  
-    const items = {}
-  
-    // Ensure only the minimal needed data is exposed
-    fields.forEach((field) => {
-      if (field === 'slug') {
-        items[field] = realSlug
-      }
-      if (field === 'content') {
-        items[field] = content
+    do {
+      var fullPath = p.join(postsDirectory, `${realSlug}.md`);
+
+      if (isMock == "true" && (!fs.existsSync(fullPath) || fileEmpty)) {
+        fullPath = p.join(p.join(process.cwd(), '_posts'), `${realSlug}.md`);
       }
   
-      if (typeof data[field] !== 'undefined') {
-        items[field] = data[field]
-      }
-    })
+      const fileContents = fs.readFileSync(fullPath, 'utf8')
+      const { data, content } = matter(fileContents)
 
-    res.status(200).json(items);
+      if (content.trim() == "" || Object.keys(data).length == 0) {
+        fileEmpty = true;
+        continue;
+      } else {
+        fileEmpty = false;
+      }
+    
+      const items = {}
+    
+      // Ensure only the minimal needed data is exposed
+      fields.forEach((field) => {
+        if (field === 'slug') {
+          items[field] = realSlug
+        }
+        if (field === 'content') {
+          items[field] = content
+        }
+    
+        if (typeof data[field] !== 'undefined') {
+          items[field] = data[field]
+        }
+      })
+
+      res.status(200).json(items);
+    } while (fileEmpty);
   }
